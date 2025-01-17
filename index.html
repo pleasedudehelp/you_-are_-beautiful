@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretty HTML</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fce4ec;
+      overflow: hidden;
+    }
+
+    img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    h1, p {
+      margin: 20px;
+      color: #4a148c;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 20px;
+      font-size: 1em;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      position: relative;
+    }
+
+    .btn:hover {
+      background-color: #c2185b;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+    let moveInterval;
+
+    function goToPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
+      document.getElementById(pageId).classList.remove('hidden');
+    }
+
+    function moveButtonTemporarily(buttonId) {
+      const button = document.getElementById(buttonId);
+
+      if (moveInterval) clearInterval(moveInterval);
+
+      moveInterval = setInterval(() => {
+        const container = button.parentElement;
+        const maxX = container.offsetWidth - button.offsetWidth;
+        const maxY = container.offsetHeight - button.offsetHeight;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        button.style.position = 'absolute';
+        button.style.left = `${randomX}px`;
+        button.style.top = `${randomY}px`;
+      }, 300);
+
+      setTimeout(() => clearInterval(moveInterval), 3000); // Stop moving after 3 seconds
+    }
+
+    function moveButtonContinuously(buttonId) {
+      const button = document.getElementById(buttonId);
+
+      const container = button.parentElement;
+      const maxX = container.offsetWidth - button.offsetWidth;
+      const maxY = container.offsetHeight - button.offsetHeight;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      button.style.position = 'absolute';
+      button.style.left = `${randomX}px`;
+      button.style.top = `${randomY}px`;
+    }
+  </script>
+</head>
+<body>
+  <!-- Page 1 -->
+  <div id="page1" class="page">
+    <img src="https://i.ibb.co/bgFKLY9/IMG-20241231-014033-348.jpg" alt="Areesha Image">
+    <h1>Are you Areesha, the queen of cuteness?</h1>
+    <button class="btn" onclick="goToPage('page2')">Yes</button>
+  </div>
+
+  <!-- Page 2 -->
+  <div id="page2" class="page hidden">
+    <h1>I have a prominent question to ask, would you answer?</h1>
+    <button class="btn" onclick="goToPage('page3')">Okay</button>
+  </div>
+
+  <!-- Page 3 -->
+  <div id="page3" class="page hidden">
+    <h1>Do you think you are beautiful and cute?</h1>
+    <button class="btn" id="yes" onclick="goToPage('page4')">Yes</button>
+    <button class="btn" id="no" onclick="moveButtonTemporarily('no')">No</button>
+  </div>
+
+  <!-- Page 4 -->
+  <div id="page4" class="page hidden">
+    <h1>Hm, I see you accept yourself to be beautiful.</h1>
+    <button class="btn" id="yes" onclick="goToPage('page5')">Yes</button>
+    <button class="btn" id="no" onclick="moveButtonContinuously('no')">No</button>
+  </div>
+
+  <!-- Page 5 -->
+  <div id="page5" class="page hidden">
+    <img src="https://i.ibb.co/7vgbDGf/IMG-20241231-014024-495.jpg" alt="Areesha Final Image">
+    <h1>See, you also accept you are beautiful and cute.</h1>
+    <p>Your beauty is unmatched with the moon. Happy birthday on your new year of beauty and sweetness, you cutie pathooti!!</p>
+  </div>
+</body>
+</html>
